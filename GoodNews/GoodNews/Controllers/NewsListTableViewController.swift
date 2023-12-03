@@ -10,6 +10,7 @@ import UIKit
 
 class NewsListTableViewController: UITableViewController {
     private var articleListViewModel: ArticleListViewModel!
+    private var API_KEY: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,9 +45,11 @@ class NewsListTableViewController: UITableViewController {
     }
     
     private func setup() {
+        API_KEY = ProcessInfo.processInfo.environment["API_KEY"]
+        
         // To set the navigation controller title large
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        let url = URL(string: "https://newsapi.org/v2/top-headlines?country=us&apiKey=YOUR_API_KEY")!
+        let url = URL(string: "https://newsapi.org/v2/top-headlines?country=us&apiKey=\(API_KEY!)")!
         Webservice().getArticles(url: url) { articles in
             
             if let articles = articles {
